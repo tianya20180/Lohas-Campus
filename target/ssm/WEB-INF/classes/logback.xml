@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 second" debug="false">
+    <!-- TREACE<DEBUG<INFO<WARN<ERROR      -->
+    <property name="log.level" value="debug"/>
+    <property name="log.maxHistory" value="30"/>
+    <property name="log.filePath" value="$(catalina.base)/logs/webapps"></property>
+    <property name="log.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS}[{%thread}]%-5level %logger{50} -%msg%n"/>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+         <encoder>
+             <pattern>${log.pattern}</pattern>
+         </encoder>
+    </appender>
+
+
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>$(log.filePath)/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.pattern}/debug/debug.%d{yyyy-MM-dd}.log.gz
+            </fileNamePattern>
+        </rollingPolicy>
+
+        <MaxHistory>${log.maxHistory}</MaxHistory>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos/logback.classic.filter.levelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+
+
+
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>$(log.filePath)/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.pattern}/error/error.%d{yyyy-MM-dd}.log.gz
+            </fileNamePattern>
+        </rollingPolicy>
+
+        <maxHistory>${log.maxHistory}</maxHistory>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos/logback.classic.filter.levelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+
+
+
+
+    <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.pattern}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.pattern}/info/info.%d{yyyy-MM-dd}.log.gz
+            </fileNamePattern>
+        </rollingPolicy>
+
+        <MaxHistory>${log.maxHistory}</MaxHistory>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos/logback.classic.filter.levelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+
+
+    <logger name="com.wx.happy" level="$(log.level)" additivity="true">
+        <appender-ref ref="debugAppender"/>
+        <appender-ref ref="infoAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+    <root level="info">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+
+</configuration>
