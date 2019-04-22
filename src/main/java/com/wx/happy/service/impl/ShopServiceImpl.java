@@ -37,6 +37,7 @@ public class ShopServiceImpl implements ShopService {
                   throw new ShopOperationException("店铺创建失败");
               }
               else{
+                //  System.out.println(shopImg);
                   if(shopImg!=null){
                       try {
                           addShopImg(shop, shopImg);
@@ -52,7 +53,7 @@ public class ShopServiceImpl implements ShopService {
                   }
               }
           }catch (Exception e){
-              throw new ShopOperationException("addShop error"+e.getMessage());
+              throw new ShopOperationException("add shop error"+e.getMessage());
           }
           return new ShopExcution(ShopStateEnum.CHECK,shop);
 
@@ -60,8 +61,11 @@ public class ShopServiceImpl implements ShopService {
 
     private void addShopImg(Shop shop, File shopImg) {
         //获取shop目录的相对值路径
-        String dest= PathUtil.getShopImagePath(shop.getShopId());
+
+        String dest = PathUtil.getShopImagePath(shop.getShopId());
+        System.out.println(dest);
         String shopImgAddr= ImageUtil.generateThumbnail(shopImg,dest);
+        System.out.println(shopImgAddr);
         shop.setShopImg(shopImgAddr);
     }
 

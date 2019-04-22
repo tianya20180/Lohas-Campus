@@ -1,7 +1,7 @@
 package com.wx.happy.util;
 
 public class PathUtil {
-    private static String seperator=System.getProperty("file.seperator");
+    private static String seperator=System.getProperty("file.separator");
     public static String getImageBaesPath(){
         String os=System.getProperty("os.name");
         String basePath="";
@@ -14,8 +14,14 @@ public class PathUtil {
         return basePath;
     }
     public static String getShopImagePath(long shopId){
-        String imagePath="upload/item/shop/"+shopId;
-        return imagePath.replace("/",seperator);
+        String imagePath="";
+        try {
+             imagePath = "upload/item/shop/" + shopId;
+        }
+        catch (Exception e){
+           e.printStackTrace();
+        }
+        return imagePath;
     }
 
 }

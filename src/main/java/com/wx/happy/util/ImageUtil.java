@@ -36,7 +36,15 @@ public class ImageUtil {
     public static String generateThumbnail(File thumbnail,String targetAddr){
         String realFileName=getRamdomFileName();
         String extension=getFileExtension(thumbnail);
-        makeDirPath(targetAddr);
+        System.out.println(realFileName+" "+extension);
+        try {
+            System.out.println(targetAddr);
+            makeDirPath(targetAddr);
+        }
+        catch (Exception e){
+            System.out.println("make path error");
+            e.printStackTrace();
+        }
         String relativeAddr=targetAddr+realFileName+extension;
         logger.debug("current Addr:"+realFileName);
         File dest=new File(PathUtil.getImageBaesPath()+realFileName);
@@ -56,7 +64,7 @@ public class ImageUtil {
         String realFilePath=PathUtil.getImageBaesPath()+targetAddr;
         File dirPath=new File(realFilePath);
         if(!dirPath.exists()){
-            dirPath.mkdir();
+            dirPath.mkdirs();
         }
     }
 
@@ -65,7 +73,7 @@ public class ImageUtil {
         return originalFileName.substring(originalFileName.lastIndexOf("."));
     }
 
-    private static String getRamdomFileName() {
+    public static String getRamdomFileName() {
          int rannum=r.nextInt(8999)+10000;
          String nowTimeStr=sDateFormat.format(new Date());
          return nowTimeStr+rannum;
