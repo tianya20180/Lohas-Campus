@@ -9,11 +9,13 @@ import com.wx.happy.service.ShopService;
 import com.wx.happy.util.ImageUtil;
 import com.wx.happy.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.Date;
 
+@Service
 public class ShopServiceImpl implements ShopService {
 
     @Autowired
