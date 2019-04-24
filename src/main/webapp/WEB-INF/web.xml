@@ -17,6 +17,51 @@
 		</init-param>
 
 	</servlet>
+
+	<servlet>
+		<servlet-name>Kaptcha</servlet-name>
+		<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+		<init-param>
+			<param-name>Kaptcha.border</param-name>
+			<param-value>no</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.testproducer.font.color</param-name>
+			<param-value>red</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.image.width</param-name>
+			<param-value>135</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.image.height</param-name>
+			<param-value>50</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.textproducer.char.string</param-name>
+			<param-value>ACDEFHRPSWXUI1234567890</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.textproducer.font.size</param-name>
+			<param-value>43</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.noise.color</param-name>
+			<param-value>black</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.testproducer.char.length</param-name>
+			<param-value>4</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Kaptcha.testproducer.font.names</param-name>
+			<param-value>Arial</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Kaptcha</servlet-name>
+		<url-pattern>/Kaptcha</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>spring-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>

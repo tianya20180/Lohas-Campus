@@ -2,10 +2,15 @@ package com.wx.happy.superadmin.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wx.happy.dto.ShopExcution;
+import com.wx.happy.entity.Area;
 import com.wx.happy.entity.PersonInfo;
 import com.wx.happy.entity.Shop;
+import com.wx.happy.entity.ShopCategory;
 import com.wx.happy.enums.ShopStateEnum;
+import com.wx.happy.service.AreaService;
+import com.wx.happy.service.ShopCategoryService;
 import com.wx.happy.service.ShopService;
+import com.wx.happy.util.CodeUtil;
 import com.wx.happy.util.HttpServletUtil;
 import com.wx.happy.util.ImageUtil;
 import com.wx.happy.util.PathUtil;
@@ -21,7 +26,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Controller
 @RequestMapping("/shopadmin")
@@ -29,9 +36,34 @@ public class ShopManagementController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private ShopCategoryService shopCategoryService;
+    @Autowired
+    private AreaService areaService;
+
+    @RequestMapping(value = "/getshopinitinfo",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object>getShopinitInfo(){
+       Map<String,Object>modelMap=new HashMap<String, Object>();
+        List<ShopCategory>shopCategoryList=new ArrayList<ShopCategory>();
+        List<Area>areaList=new ArrayList<Area>();
+
+        try{
+            shopCategoryList=shopCategoryService.getShopCategoryList(new ShopCategory());
+            areaList=areaService.getAreaList();
+            modelMap.put("shopCategoryList",shopCategoryList);
+            modelMap.put("areaList",areaList);
+            modelMap.put("success",true);
+        }catch (Exception e){
+            modelMap.put("success",false);
+            modelMap.put("errorMsg",e.getMessage());
+        }
+        return modelMap;
+    }
 
 
-    @RequestMapping(value = "/registershp",method= RequestMethod.POST)
+
+    @RequestMapping(value = "/registershop",method= RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
         //1.接收并转化响应的参数
@@ -39,6 +71,13 @@ public class ShopManagementController {
        Map<String,Object>modelMap=new HashMap<String,Object>();
        String shopStr=HttpServletUtil.getString(request,"shopStr");
         ObjectMapper mapper=new ObjectMapper();
+        if(!CodeUtil.checkVerifyCode(request)){
+            modelMap.put("success",false);
+            modelMap.put("errMsg","输入了错误的验证码");
+            return modelMap;
+        }
+
+
         Shop shop=null;
         try{
             shop=mapper.readValue(shopStr,Shop.class);

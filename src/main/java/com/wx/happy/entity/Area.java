@@ -6,7 +6,7 @@ public class Area {
     //ID
     private Integer areaId;
     //名称
-    private String name;
+    private String areaName;
     //权重
     private Integer priority;
     //创建时间
@@ -22,12 +22,12 @@ public class Area {
         this.areaId = areaId;
     }
 
-    public String getName() {
-        return name;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAreaName(String name) {
+        this.areaName= name;
     }
 
     public Integer getPriority() {

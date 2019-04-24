@@ -70,7 +70,7 @@ public class ImageUtil {
 
     private static String getFileExtension(File cFile) {
         String originalFileName=cFile.getName();
-        return originalFileName.substring(originalFileName.lastIndexOf("."));
+        return ".jpg";
     }
 
     public static String getRamdomFileName() {
