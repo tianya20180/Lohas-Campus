@@ -3,5 +3,5 @@
 <mapper namespace="com.wx.happy.dao.AreaDao">
    <select id="queryArea" resultType="com.wx.happy.entity.Area">
        select area_id,area_name,priority from tb_area order by priority desc;
-   </select>
+    </select>
 </mapper>

@@ -19,6 +19,7 @@ public class Shop {
     private Area area;
     private PersonInfo owner;
     private ShopCategory shopCategory;
+    private Long shopCategoryId;
 
     public Long getShopId() {
         return shopId;
@@ -130,5 +131,13 @@ public class Shop {
 
     public void setShopCategory(ShopCategory shopCategory) {
         this.shopCategory = shopCategory;
+    }
+
+    public Long getShopCategoryId() {
+        return shopCategoryId;
+    }
+
+    public void setShopCategoryId(Long shopCategoryId) {
+        this.shopCategoryId = shopCategoryId;
     }
 }

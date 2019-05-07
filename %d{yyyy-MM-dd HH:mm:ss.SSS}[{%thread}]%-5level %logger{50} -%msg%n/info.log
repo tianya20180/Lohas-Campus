@@ -1,1 +1,1 @@
-2019-04-22 19:37:29.014[{main}]DEBUG com.wx.happy.util.ImageUtil -current completeAdd/root/图片upload/item/shop/172019042219372812345.jpg
+2019-05-06 21:34:49.683[{main}]ERROR com.wx.happy.util.ImageUtil -net.coobird.thumbnailator.tasks.UnsupportedFormatException: No suitable ImageReader found for source data.

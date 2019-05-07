@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestExecutionListeners;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class ShopDaoTest extends BaseTest {
@@ -30,10 +32,10 @@ public class ShopDaoTest extends BaseTest {
         shop.setOwner(owener);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("wx");
-        shop.setShopDesc("test");
-        shop.setPhone("test");
-        shop.setShopImg("test");
+        shop.setShopName("wx4");
+        shop.setShopDesc("test4");
+        shop.setPhone("test2");
+        shop.setShopImg("test4");
         shop.setAdvice("shening");
         shop.setEnableStatus(1);
 
@@ -46,6 +48,7 @@ public class ShopDaoTest extends BaseTest {
 
 
     @Test
+    @Ignore
     public void testUpdateShop(){
         Shop shop=new Shop();
         shop.setShopId(1L);
@@ -57,4 +60,27 @@ public class ShopDaoTest extends BaseTest {
         assertEquals(1,effectedNum);
 
     }
+
+    @Test
+    @Ignore
+    public void testQueryShopById(){
+        long shopId=1;
+        Shop shop=shopDao.queryByShopId(shopId);
+        System.out.println("AreaId"+shop.getArea().getAreaId());
+        System.out.println("AreaName"+shop.getArea().getAreaName());
+    }
+
+    @Test
+    @Ignore
+    public void testQueryShopList(){
+        Shop shopCondition=new Shop();
+        PersonInfo owner=new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        List<Shop> shopList=shopDao.queryShopList(shopCondition,0,3);
+        System.out.println("daxiao"+shopList.size());
+    }
+
+
+
 }
